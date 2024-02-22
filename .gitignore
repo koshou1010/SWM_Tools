@@ -1,0 +1,10 @@
+# env
+.env
+
+# Byte-compiled / optimized / DLL files
+venv/
+__pycache__/
+*.py[cod]
+
+**/package-lock.json
+package-lock.json
