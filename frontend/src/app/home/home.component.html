@@ -1,0 +1,50 @@
+<div [class.example-is-mobile]="mobileQuery.matches">
+  <mat-toolbar>
+    <a [routerLink]="['/']" (click)="close()" style="color:white;text-decoration: none;">
+      SWM Tools
+    </a>
+    <button mat-icon-button (click)="snav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </mat-toolbar>
+  <mat-sidenav-container [style.marginTop.px]="mobileQuery.matches ? 56 : 0" >
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
+      fixedTopGap="56">
+      <mat-expansion-panel #_panel hideToggle *ngFor="let item of listItems">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <a>
+              {{item.linkTitle}}
+              <ng-container *ngIf="item.childList.length">
+                <span class="material-icons add-icon" *ngIf="!_panel.expanded">
+                  add
+                </span>
+                <span class="material-icons add-icon" *ngIf="_panel.expanded">
+                  remove
+                </span>
+              </ng-container>
+            </a>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <ng-container *ngIf="item.childList.length">
+          <mat-selection-list *ngFor="let subItem of item.childList ; let i = index"  [multiple]="false">
+            <mat-list-option [routerLink]="[item.link[i]]" (click)="close()">
+              <!-- <a [routerLink]="[item.link[i]]" (click)="close()"> -->
+                {{subItem}}
+              <!-- </a> -->
+            </mat-list-option>
+          </mat-selection-list>
+        </ng-container>
+      </mat-expansion-panel>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <div style="min-height: 500px;">
+        <ng-container *ngIf="isPhysiologicalMonitorActive">
+          <app-physiological-monitor></app-physiological-monitor>
+        </ng-container>
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

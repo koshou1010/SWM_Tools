@@ -1,0 +1,91 @@
+<div class="card">
+  <div class="wrapper">
+    <div style="flex:1;">
+      <div style="padding-bottom: 50px;">
+        <ng-container [formGroup]="formgp">
+          <form>
+            <mat-form-field appearance="fill">
+              <mat-label>uuId</mat-label>
+              <input type="number" matInput placeholder="123" formControlName="uuId" (ngModelChange)="resetParams()">
+            </mat-form-field>
+
+            <div style="display: flex;align-items: center;">
+
+              <mat-form-field *ngIf="fieldType === 'date'" appearance="fill">
+                <mat-label>Enter a date range</mat-label>
+                <mat-date-range-input [rangePicker]="picker" [dateFilter]="startDateFilter">
+                  <input matStartDate formControlName="start">
+                  <input matEndDate formControlName="end" (dateChange)="resetParams()">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+              </mat-form-field>
+
+              <mat-form-field *ngIf="fieldType === 'text'" appearance="fill">
+                <mat-label>timestamp</mat-label>
+                <input type="number" matInput placeholder="123" formControlName="start" (ngModelChange)="resetParams()">
+              </mat-form-field>
+
+              <button type="button" matSuffix matTooltip="切換日期/input" (click)="toggleFieldType()" style="width: 30px; height:30px; background-color: transparent; padding: 0; border: 0;">
+                <span class="material-icons" style="color: white;">
+                  change_circle
+                </span>
+              </button>
+            </div>
+          </form>
+
+
+        </ng-container>
+        <div class="button-set">
+          <button app-button (click)="query()" [disabled]="!formgp.valid || startQuery ">
+            <span>查詢</span>
+          </button>
+          <button app-button (click)="startDownload()" [disabled]="!queryResult">
+            <span>開始下載</span>
+          </button>
+        </div>
+      </div>
+      <mat-progress-bar mode="query" *ngIf="startQuery && !queryEnd"></mat-progress-bar>
+      <mat-card-content *ngIf="queryEnd && queryResult">
+        <h2>Result</h2>
+        <mat-list role="list" *ngFor="let i of queryDateArray.sort()">
+          <mat-list-item role="listitem">{{i}}</mat-list-item>
+          <mat-divider></mat-divider>
+        </mat-list>
+        <ng-container *ngIf="startDownloadFlag">
+          <p>{{value*progressMax/100| number:'1.2-2' }} / {{progressMax}}</p>
+          <mat-card>
+            <div style="display: flex;position: relative; ">
+              <mat-progress-bar mode="determinate" [color]="color" [value]="value"></mat-progress-bar>
+              <ng-container *ngIf="value && !downloadEnd">
+                <img src="./assets/hammer.gif" class="pgbar-img" [ngStyle]="{'left': (value-4) + '%'}" />
+              </ng-container>
+            </div>
+            <!-- </section> -->
+          </mat-card>
+          <ng-container *ngIf="downloadEnd">
+            <button app-button color="primary" style="float: right;margin-top: 10px;" (click)="getDownloadFile()">
+              <span>下載</span>
+            </button>
+          </ng-container>
+        </ng-container>
+      </mat-card-content>
+      <mat-card-content *ngIf="queryEnd && !queryResult">
+        <h2 style="color: red;">{{formgp.value.uuId}}在{{formgp.value.start |
+          date:'yyyy-MM-dd'}}&nbsp;到&nbsp;{{formgp.value.end | date:'yyyy-MM-dd'}} 沒有資料</h2>
+      </mat-card-content>
+    </div>
+    <div style="color: white;flex:1;">
+      <ng-container *ngIf="fieldType === 'date'">
+        <h2>下載時間區間內的RawData</h2>
+        <p>輸入uuId</p>
+        <p>選擇時間起迄(最多30天)</p>
+      </ng-container>
+      <ng-container *ngIf="fieldType === 'text'">
+        <h2>下載單次連線的RawData</h2>
+        <p>輸入uuId</p>
+        <p>輸入timestamp(startTT, 13碼)</p>
+      </ng-container>
+    </div>
+  </div>
+</div>

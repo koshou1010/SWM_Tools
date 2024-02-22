@@ -1,0 +1,129 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin     : 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-toolbar {
+  background-color: black;
+  justify-content : space-between;
+  color           : white;
+}
+
+.mat-drawer {
+  width: 25%;
+
+  &-container {
+    color: rgba(0, 0, 0, .6);
+  }
+}
+
+.mat-sidenav {
+  background-color: #222;
+}
+
+.mat-expansion-panel {
+  background-color: #222;
+
+  a,
+  span {
+    color: white;
+  }
+
+  .mat-list-item:hover {
+    a {
+      color: #00b3ba;
+    }
+  }
+
+  .mat-expansion-panel-header {
+    &:focus {
+      border-style: solid;
+      border-width: 1px;
+      border-color: #00b3ba;
+
+      a,
+      span {
+        color: #00b3ba;
+      }
+    }
+
+    &:hover {
+      border-width: 1px !important;
+      border-color: #00b3ba !important;
+
+      a {
+        color: #00b3ba;
+      }
+    }
+
+    span {
+      &:hover {
+        color: #00b3ba;
+      }
+    }
+  }
+
+  .mat-expansion-panel-body {
+    background-color: #111;
+    padding         : 0;
+
+    .mat-selection-list:hover {
+      .mat-list-text {
+        color: #00b3ba;
+      }
+    }
+
+    .mat-list-item-content {
+      padding: 0 !important;
+    }
+
+    .mat-list-text {
+      margin-left: 30px;
+      color      : white;
+    }
+  }
+}
+
+
+.mat-sidenav-content {
+  background-color: #3C3C3C;
+}
+
+.mat-calendar-body-preview-end>.mat-calendar-body-cell-content {
+  background-color: red !important;
+}
+
+.mat-progress-bar {
+  height       : 10px !important;
+  border-radius: 6px !important;
+
+  &-fill::after {
+    background-color: #00b3ba !important;
+  }
+}
+
+.mat-card {
+  &-content {
+    color: white;
+
+    .mat-list-item {
+      color: white !important;
+    }
+
+  }
+}
+
+.mat-form-field {
+  width: 300px;
+
+  &-flex {
+    background-color: #FFFFFF !important;
+  }
+}
