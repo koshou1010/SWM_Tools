@@ -2,5 +2,7 @@ asgiref==3.7.2
 channels==4.0.0
 Django==4.2.9
 djangorestframework==3.14.0
+environ==1.0
 pymongo==4.6.2
 Requests==2.31.0
+setuptools==57.4.0
