@@ -52,7 +52,7 @@ docker push {$image_name}
 kubectl apply -f .\k8s\backend.yaml
 kubectl apply -f .\k8s\frontend.yaml
 ```
-
+<http://localhost:4200/>
 ## Kubernetes Dashboard
 ### Installation, [ref](https://ciao-chung.com/page/article/kubernetes-dashboard-manage-cluster)
 ```
